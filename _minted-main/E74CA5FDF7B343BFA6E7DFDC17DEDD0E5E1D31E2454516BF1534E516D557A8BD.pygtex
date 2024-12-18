@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{pycbc}
+\PYG{k+kn}{from} \PYG{n+nn}{pycbc.catalog} \PYG{k+kn}{import} \PYG{n}{Merger}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+
+\PYG{n}{merger} \PYG{o}{=} \PYG{n}{Merger}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}GW150914\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{strain} \PYG{o}{=} \PYG{n}{merger}\PYG{o}{.}\PYG{n}{strain}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}H1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{strain}\PYG{o}{.}\PYG{n}{sample\PYGZus{}times}\PYG{p}{,} \PYG{n}{strain}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

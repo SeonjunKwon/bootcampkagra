@@ -1,0 +1,657 @@
+\section{Data Analysis Tutorial}
+
+GWOSC Tutorial: Optional.\footnote{You can do \href{https://gw-odw.thinkific.com/courses/odw2024}{GWOSC TUTORIAL 2024}: tutorial 1.1-3.3 first. But this tutorial referred to GWOSC tutorial much, so I recommend doing one and reading another as a dictionary.}
+
+\subsection{Tutorial 1}
+
+\subsubsection{Tutorial 1.1 - View Data with GWOSC Package}
+
+With 'gwosc' pacakge, you can
+
+1. Know what event are in a (particular) catalog: for example, you can know GW150914, GW151012,... are in GWTC-1(confident) event catalog.
+
+2. Find gravitational-wave datasets for a specific time
+
+3. Know the event time(GPS) of the gravitational-wave detection
+
+4. Get the URLs of a specific gravitational-wave event data
+
+5. Filter data satisfying certain parameters
+
+etc..
+
+For more understanding, you can visit \href{https://gwosc.readthedocs.io/en/stable/index.html}{GWOSC 0.7.1 documentation}.
+
+\subsubsection{Tutorial 1.2 - Fetch Timeseries}
+
+'gwpy', 'pycbc', 'bilby' are Python packages which is used to analyse gravitational-wave data.
+
+Depending on the analyzing method, there are cases in which data formatted by a specific package should be used. For a few sections from here you learn:
+
+How to open and plot the data,
+
+How to convert the timeseries-data into a frequencyseries-data,
+
+How to generate and inject signal data,
+
+How to change the format so that the data to be compatible with each other,
+
+etc..
+
+In this section, you fetch open-data(timeseries data) with 'gwpy', 'pycbc' and 'bilby' package.
+
+\
+
+1. GWpy\footnote{https://gwpy.github.io/docs/stable/overview/}
+
+Prepare the environment.\footnote{It will be explained next time, please distinguish it from PyCBC TimeSeries.}
+
+\begin{python}[Python3]
+import warnings
+warnings.filterwarnings("ignore", "Wswiglal-redir-stdio")
+import gwpy
+from gwpy.timeseries import TimeSeries
+\end{python}
+
+Fetching open-data, we need to
+
+1. Know the event time(GPS).
+
+2. Choose the interferometer.
+
+At first, we use GWOSC package to know the GPS time. In this step, we fetch GPS time and set the segment time(for this example, GPS segment to 10 seconds around GPS time).
+
+You can print gps and segment for check also.
+
+\begin{python}[python3]
+import gwosc
+from gwosc.datasets import event_gps
+
+gps = event_gps('GW190412')
+segment = (int(gps)-5, int(gps)+5)
+\end{python}
+
+And then, we need to download open data from interferometer data.
+
+The interferometers we can use in GWOSC package are as follows.
+
+'L1': LIGO-Livingston
+
+'H1': LIGO-Handford
+
+'G1': GEO-600
+
+'V1': (Advanced) Virgo
+
+'K1': KAGRA
+
+Using TimeSeries (from gwpy.timeseries), we can fetch the data.
+
+\begin{python}[python3]
+    FetchedData = TimeSeries.fetch_open_data('L1', *segment, verbose = True)
+\end{python}
+
+You can plot easily using GWOSC TimeSeries.
+
+\begin{python}[python3]
+    plot = FetchedData.plot()
+    plot.show() # If you can't see the plot by previous line, run this line also.
+\end{python}
+
+2. PyCBC
+
+In PyCBC, we don't need to know GPS time exactly.(So we don't need GWOSC.)
+
+We can use interferometers in PyCBC almost same as in GWpy.
+
+\begin{python}[python3]
+    import pycbc
+    from pycbc.catalog import Merger
+    import matplotlib.pyplot as plt
+
+    merger = Merger("GW150914")
+    strain = merger.strain('H1')
+    plt.plot(strain.sample_times, strain)
+    plt.show()
+\end{python}
+
+The default sampling time is 1/4096 second, and we will learn downsampling and removing low-frequence in the next section.
+
+\ 
+
+3. bilby
+
+In bilby, we need to fetch data from GWpy.
+
+\begin{python}[python3]
+    import bilby
+    import gwosc
+    from gwosc.datasets import event_gps
+    import gwpy
+    from gwpy.timeseries import TimeSeries
+
+    #Using GWpy, download the gravitional-wave data.
+    gps = event_gps('GW150914')
+    Data = TimeSeries.fetch_open_data('L1', gps - 2, gps + 2, sample_rate = 4096, cache = True)
+
+    #Set interferometer and strain data using bilby
+    L1 = bilby.gw.detector.get_empty_interferometer('L1')
+    L1.set_strain_data_from_gwpy_timeseries(Data)
+\end{python}
+
+\subsubsection{Tutorial 1.3 - Generate a Signal Timeseries}
+
+With PyCBC, we can generate a signal. In this example, using the approximant 'IMRPhenomD', we generate a binary-black-holes signal.
+
+\begin{python}[python3]
+    from pycbc.waveform import get_td_waveform
+    sampling_rate = 4096
+    hp, hc = get_td_waveform(approximant = 'IMRPhenomD',
+                             mass1 = 36,
+                             mass2 = 29,
+                             delta_t = 1 / sampling_rate,
+                             f_lower = 20,
+                             distance = 410)
+\end{python}
+
+You can use other approximants (for example TaylorT4 for binary-neutron-stars) or add other parameters (for example spins). See \href{https://pycbc.org/pycbc/latest/html/pycbc.waveform.html#pycbc.waveform.waveform.get_td_waveform}{here}.
+
+\subsubsection{Tutorial 1.4 - Resample Timeseries Data}
+
+1. GWpy
+
+From tutorial 1.2, we have fetched data named FetchedData.
+
+First, let's check sampling rate and delta t(the inverse of the sampling rate).
+
+\begin{python}[python3]
+    print(FetchedData.sample_rate)
+    print(FetchedData.dt)
+\end{python}
+
+We can resample(downsample) the data easily.
+
+\begin{python}[python3]
+    ResampledData = FetchedData.resample(1024)
+    print(ResampledData.sample_rate)
+    print(ResampledData.dt)
+\end{python}
+
+2. PyCBC
+
+From tutorial 1.2, we have fetched data named strain.
+
+First, let's check sampling rate and delta t.
+
+\begin{python}[python3]
+    print(strain.sample_rate)
+    print(strain.delta_t) #not dt
+\end{python}
+
+We can resample(downsample) the data with 'resample\_to\_delta\_t'.
+
+\begin{python}[python3]
+    from pycbc.filter import resample_to_delta_t
+
+    resampled = resample_to_delta_t(strain, 1/1024)
+    print(resampled.sample_rate)
+    print(resampled.delta_t)
+\end{python}
+
+\subsubsection{Tutorial 1.5 - Resize a TimeSeries}
+
+With PyCBC, we can resize the PyCBC timeseries. 
+
+1. Time Slice
+
+(0,4) means that we only have time from 0 to 4 seconds left in these timeseries.
+
+\begin{python}[python3]
+    import pycbc
+    from pycbc.waveform import get_td_waveform
+    hp, hc = get_td_waveform(approximant = "IMRPhenomD",
+                             mass1 = 36,
+                             mass2 = 29,
+                             delta_t = 1 / sampling_rate,
+                             f_lower = 20,
+                             distance = 410)
+    hp.start_time = hp.start_time + 2
+    hc.start_time = hc.start_time + 2
+    hpslice = hp.time_slice(0,4)
+    hcslice = hc.time_slice(0,4)
+\end{python}
+
+2. Crop
+
+(0.5,0.5) means that we throw away the first 0.5 seconds and the last 0.5 seconds in these timeseries.
+
+\begin{python}[python3]
+    import pycbc
+    from pycbc.waveform import get_td_waveform
+    hp, hc = get_td_waveform(approximant = "IMRPhenomD",
+                             mass1 = 36,
+                             mass2 = 29,
+                             delta_t = 1 / sampling_rate,
+                             f_lower = 20,
+                             distance = 410)
+    hp.start_time = hp.start_time + 2
+    hc.start_time = hc.start_time + 2
+    hpcrop = hp.crop(0.5,0.5)
+    hccrop = hc.crop(0.5,0.5)
+\end{python}
+
+3. Resize
+
+(65536) means that we resize the data, length to 65536. The length is (duration time)$\times$(time interval). Here, 'resize' adjusts the length by adding a sample before or after the data if necessary.
+
+\begin{python}[python3]
+    import pycbc
+    from pycbc.waveform import get_td_waveform
+    hp, hc = get_td_waveform(approximant = "IMRPhenomD",
+                             mass1 = 36,
+                             mass2 = 29,
+                             delta_t = 1 / sampling_rate,
+                             f_lower = 20,
+                             distance = 410)
+    hp.start_time = hp.start_time + 2
+    hc.start_time = hc.start_time + 2
+    hpcrop = hp.resize(65536)
+    hccrop = hc.resize(65536)
+\end{python}
+
+\subsubsection{Tutorial 1.6 - Generate FrequencySeries Data}
+
+With PyCBC, we can generate a Frequencyseries data. The method is similar to the Timeseries part. The return is a frequency domain gravitational waveform.
+
+\begin{python}[python3]
+    from pycbc.waveform import get_fd_waveform
+    hp, hc = get_td_waveform(approximant = 'IMRPhenomD',
+                             mass1 = 36,
+                             mass2 = 29,
+                             delta_f = 0.25,
+                             f_lower = 20,
+                             distance = 410)
+\end{python}
+
+For more information, see \href{https://pycbc.org/pycbc/latest/html/pycbc.waveform.html#pycbc.waveform.waveform.get_td_waveform}{PyCBC Document: Waveform}
+
+\subsubsection{Tutorial 1.7 - Change Format}
+
+We can change data format, for example, PyCBC to GWpy, etc..
+
+We will change a PyCBC timeseries to GWpy timeseries. The basic method is to copy and paste the numbers of time data and the corresponding time series data, so it is easy to convert to the format not introduced here. Try it yourself.
+
+Example material: PyCBC timeseries(named 'sample', time interval: 1/4096 s, start time: 0 s)
+
+\begin{python}[python3]
+    import pycbc
+    from pycbc.types import TimeSeries
+    import gwpy
+    from gwpy.timeseries import TimeSeries as GWTimeSeries
+    GWsample = GWTimeSeries(
+    sample,
+    dt = 1/4096,
+    t0 = 0)
+\end{python}
+
+\subsection{Tutorial 2}
+
+\subsubsection{Tutorial 2.1 - Generate a White Gaussian Noise}
+
+When generating a white gaussian noise, the PSD must be flat.
+
+You can generate the PSD with bilby and generate a white gaussian noise. In this example, we make a flat PSD whose frequency range is from 0 to 2048Hz and frequency interval is 0.25Hz
+
+\begin{python}[python3]
+    import numpy as np
+    import bilby
+    freq = np.linspace(0,2048,8193)
+    psd = 8193 * [1. * 1e-40]
+    Ifo = bilby.gw.detector.get_empty_interferometer('K1')
+    Ifo.power_spectral_density = bilby.gw.detector.PowerSpectralDensity(
+        frequency_array = freq,
+        psd_array = psd)
+\end{python}
+
+Let's make a white gaussian noise from the flat PSD we made.
+
+\begin{python}[python3]
+    Ifo.set_strain_data_from_power_spectral_density(
+        sampling_frequency=4096,
+        duration=4096,
+        start_time=0)
+\end{python}
+
+You can check if this noise is gaussian.
+
+\begin{python}[python3]
+    plt.hist(Ifo.strain_data.time_domain_strain, bins = 100)
+    plt.show()
+\end{python}
+
+You can check if this noise is white.
+
+\begin{python}[python3]
+    plt.loglog(Ifo.strain_data.frequency_array, abs(Ifo.strain_data.frequency_domain_strain))
+    plt.show()
+\end{python}
+
+\subsubsection{Tutorial 2.2 - Fetch PSD and Generate Coloured Noise}
+
+With bilby package, you can generate a coloured PSD for simulation. Each of the interferometers in the bilby package has its own PSD by default.
+
+\begin{python}[python3]
+    import bilby
+    Ifo = bilby.gw.detector.get_empty_interferometer('K1')
+    Ifo.set_strain_data_from_power_spectral_density(
+        sampling_frequency=4096,
+        duration=4096,
+        start_time=0)
+\end{python}
+
+We fetched KAGRA simulation PSD and set strain data from the PSD. You can choose 'L1', 'H1' or 'V1', etc for other interferometers.
+
+You can see the PSD.
+
+\begin{python}[python3]
+    import matplotlib.plot as plt
+    plt.loglog(Ifo.power_spectral_density.frequency_array, Ifo.power_spectral_density.psd_array)
+    plt.show()
+\end{python}
+
+You can check if this noise is gaussian.
+
+\begin{python}[python3]
+    plt.hist(Ifo.strain_data.time_domain_strain, bins = 100)
+    plt.show()
+\end{python}
+
+You can check if this noise is coloured.
+
+\begin{python}[python3]
+    plt.loglog(Ifo.strain_data.frequency_array, abs(Ifo.strain_data.frequency_domain_strain))
+    plt.show()
+\end{python}
+
+You can plot the noise timeseries.
+
+\begin{python}[python3]
+    plt.plot(Ifo.strain_data.time_array, Ifo.strain_data.time_domain_strain)
+    plt.show()
+\end{python}
+
+\subsubsection{Tutorial 2.3 - Inject a Signal to the Noise}
+
+We generated a noise and signal. To inject, the two timeseries must be compatible (have the same format), and the time interval and duration of the two must be the same.
+
+If the signal's format is GWPy(I recommend), then convert the bilby noise to GWPy timeseries and inject. PyCBC is also recommended, and the method is almost same. See \href{https://pycbc.org/pycbc/latest/html/modules.html}{PyCBC Document} and \href{https://gwpy.github.io/docs/stable/}{GWPy Document}.
+
+1. GWPy
+
+\begin{python}[python3]
+    from gwpy.timeseries import TimeSeries
+    Ifo.set_strain_data_from_power_spectral_density(
+        sampling_frequency=4096,
+        duration=4,
+        start_time=0)
+    Noise = TimeSeries(
+        Ifo.strain_data.time_domain_strain,
+        dt = 1/4096,
+        t0 = 0)
+\end{python}
+
+2. bilby
+
+We can inject a signal to the noise, using bilby. I only put it here for the reference that there is an example of this. See \href{https://lscsoft.docs.ligo.org/bilby/api/bilby.gw.detector.inject_signal_into_gwpy_timeseries.html}{bilby Document} for more information.
+
+\subsection{Tutorial 3}
+
+\subsubsection{Tutorial 3.1 - Q Transforms}
+
+We can do Q-transform with GWpy. For more informations such as basic knowledge, visit \href{https://iopscience.iop.org/article/10.1088/0264-9381/21/20/024}{this article}.
+
+Material: GWpy timeseries (named 'data')
+
+\begin{python}[python3]
+    import warnings
+    warnings.filterwarnings("ignore", "Wswiglal-redir-stdio")
+    import gwpy
+    import matplotlib.pyplot as plt
+
+    qt = data.q_transform(frange=(30, 500))
+    plot = qt.plot()
+    plot.colorbar(label="Normalised energy")
+\end{python}
+
+We can set colorbar range also. This helps to see signals hidden in loud noise (e.g., shot noise, etc.).
+
+\begin{python}
+    plot.colorbars[0].mappable.set_clim(0,20)
+    plot.refresh()
+    plot
+\end{python}
+
+\subsubsection{Tutorial 3.2 - Matched Filtering Test}
+
+We use PyCBC.
+
+Material. The formats should be PyCBC timeseries.
+
+1. PSD
+
+2. Strain data (ex. noise of the detector, fetched strain data, or signal injected to the noise, etc)
+
+If you generate noise strain data, please use the PSD data. If you fetch strain data, please make(estimate) the PSD from the strain data fetched. The sampling frequency interval has to be same between PSD and the strain data.
+
+3. Sample waveform data (hplus timeseries)
+
+The sampling time interval of the sample has to be same as that of the strain data.
+
+Let's assume that we have the strain data(named 'strain'), PSD data(named 'psd'), and the sample waveform data(named 'hp').
+
+First, match the length of hp and sample.
+
+\begin{python}[python3]
+    import numpy as np
+    import pycbc
+    from pycbc.waveform import get_td_waveform
+    from pycbc.filter import matched_filter
+    hp.resize(len(sample))
+\end{python}
+
+The time of the strain data has to be different from that of the sample. If you generated the noise data, please do this work. (If you fetched strain data, this work is not necessary.)
+
+\begin{python}[python3]
+    hp.start_time = hp.start_time - (len(sample) * hp.delta_t + 1)
+\end{python}
+
+Do matched filtering. We should remove time corrupted by the template filter and the psd filter. We assume that the time-length of the sample is long enough, so 2e set the cropping time to the first 4 seconds and the last 4 seconds. (This time can change fluidly of course.)
+
+\begin{python}
+    snr = matched_filter(hp,
+                         sample,
+                         psd=psd,
+                         low_frequency_cutoff=20)
+    snr = snr.crop(4, 4)
+    peak = abs(snr).numpy().argmax()
+    snrp = noisesnr[peak]
+    snrp = abs(snrp)
+    time = snr.sample_times[peak]
+    print(time)
+    print(snrp)
+\end{python}
+
+\subsubsection{Tutorial 3.3 - Parameter Estimating}
+
+Using bilby, we can estimate the parameter(The source of the gravitational-wave).
+
+Material
+
+1. Strain data
+
+You can fetch the strain data, or use generated noise data or signal injected to noise.
+
+2. Waveform Arguments (bilby)
+
+3. Prior (bilby)
+
+First, set prior. Bilby runs Monte Carlo process or Dynesty process to estimate the parameters. In this example, we will estimate the GW150914 parameters.
+
+\begin{python}[python3]
+    import bilby
+    from bilby.core.prior import Uniform, PowerLaw
+    prior = bilby.core.prior.PriorDict()
+    prior['chirp_mass'] = Uniform(name = 'chirp_mass',
+                                  minimum = 26.0,
+                                  maximum = 30.0)
+    prior['mass_ratio'] = Uniform(name = 'mass_ratio',
+                                  minimum = 0.5,
+                                  maximum = 1)
+    prior['phase'] = Uniform(name = 'phase',
+                             minimum = 0,
+                             maximum = 2 * np.pi)
+    prior['geocent_time'] = Uniform(name = 'geocent_time',
+                                    minimum = 2 - 0.1,
+                                    maximum = 2 + 0.1)
+    prior['a_1'] = 0.0
+    prior['a_2'] = 0.0
+    prior['luminosity_distance'] = PowerLaw(alpha = 2,
+                                            name = 'luminosity_distance',
+                                            minimum = 50,
+                                            maximum = 2000,
+                                            unit = 'Mpc',
+                                            latex_label = '$d_L$')
+\end{python}
+
+\subsubsection{Tutorial 3.4 - Visualing the Results}
+
+\subsection{Tutorial 4}
+\subsubsection{Turotial 4.1 - Loop, Parallel Processing}
+
+Using 'argparse' package, we can do parallel processing.
+
+We set variables and make a program that prints the number.
+
+\begin{python}[python3]
+    import argparse
+    import multiprocessing
+    from multiprocessing import Pool
+    parser = argparse.ArgumentParser(
+        prog = 'ProgramName',
+        description = 'What the program does',
+        epilog = 'Text at the bottom of help')
+    parser.add_argument('-c',
+                        '--count',
+                        type=int,
+                        default=1,
+                        help='The number of simulation times')
+    parser.add_argument('-p',
+                    '--process',
+                    type=int,
+                    default=1,
+                    help='The number of processes for multi-processing')
+    args = parser.parse_args()
+    def run(n):
+        print(n+1)
+    pool = Pool(args.process)
+    inputs = range(args.count)
+    pool.map(run, inputs)
+\end{python}
+
+In bash, we will run this program running 20 steps with 4 processes. (The file name is test.py for example.)
+
+\begin{verbatim}
+    $ python3.10 test.py -c 10 -p 4
+\end{verbatim}
+
+The result will be mixed number, not the order of 1,2,3,... .
+
+This is because 20 tasks are divided and executed by 4 processes. If we set '-p 1', the result will be the order of 1,2,3,... .
+
+We cannot do bilby multi-processing by this method. Instead, multiprocessing is done inside the bilby package. In tutorial 3.3(parameter estimation), we set run\_sampler as follows.
+
+\begin{python}[python3]
+    result_short = bilby.run_sampler(
+            likelihood,
+            prior,
+            sampler = 'dynesty',
+            outdir = 'short',
+            label = 'GW150914',
+            conversion_function = bilby.gw.conversion.generate_all_bbh_parameters,
+            nlive = 250,
+            dlogz = 1.,
+            clean = True,
+            npool = args.process)
+\end{python}
+
+Then bilby will send message that we will multitask with (the set number of) processes.
+
+\subsubsection{Tutorial 4.2 - Saving and Reading CSV Files}
+
+After the iterative work, we can store the collected data. In this part, we will save the data as csv format.
+
+\begin{python}[python3]
+    import csv
+    result = []
+    def run(n):
+        result.append(n)
+    for n in range(30):
+        run(n)
+    with open('result.csv',
+          'w',
+          newline = '') as saveresult:
+    csv.writer(saveresult).writerow(result)
+\end{python}
+
+Also, we can read a csv file.
+
+\begin{python}[python3]
+    data = 'result.csv'
+    output = []
+    with open(data,
+              'r',
+              newline = '') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            output.append(row)
+    print(output)
+\end{python}
+
+\subsubsection{Tutorial 4.3 - Drawing ROC Curve}
+
+The ROC curve is the plot of the true positive rate (TPR) against the false positive rate (FPR) at each threshold setting. For more information, visit \href{https://en.wikipedia.org/wiki/Receiver_operating_characteristic}{Wikipedia page}.
+
+The higher the lower area of the curve, the better this data is classified.
+
+Let's say we have positive and negative data separately(Named PositiveData and NegativeData as python lists). The data value at this time should be a real number.
+
+\begin{python}[python3]
+    import numpy as np
+    import sklearn
+    from sklearn.metrics import roc_curve, auc
+    from sklearn.model_selection import train_test_split
+    print(len(PositiveData))
+    print(len(NegativeData))
+\end{python}
+
+Let's give positive data '1' and negative data '0', and do an analysis.
+
+\begin{python}[python3]
+    DataTrue = [0] * len(NegativeData) + [1] * len(PositiveData)
+    Scores = NegativeData + PositiveData
+    fpr, tpr, thresholds = roc_curve(DataTrue, Scores)
+\end{python}
+
+We can plot the ROC curve.
+
+\begin{python}[python3]
+    import matplotlib.pyplot as plt
+    plt.plot(fpr, tpr)
+    plt.legend(loc = 2)
+    plt.xlabel('Flase Alarm Probability')
+    plt.ylabel('Detection Probability')
+    plt.title('ROC Curve')
+    plt.show()
+\end{python}
+
+For more information, visit \href{https://scikit-learn.org/dev/modules/generated/sklearn.metrics.roc_curve.html}{Scikit-learn homepage}.

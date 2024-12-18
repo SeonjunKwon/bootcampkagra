@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{strain\PYGZus{}data}\PYG{o}{.}\PYG{n}{time\PYGZus{}array}\PYG{p}{,} \PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{strain\PYGZus{}data}\PYG{o}{.}\PYG{n}{time\PYGZus{}domain\PYGZus{}strain}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

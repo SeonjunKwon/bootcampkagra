@@ -1,0 +1,648 @@
+\newpage
+\section{Basic Settings}
+
+We assume that you use LINUX OS.
+
+There are many packages for Python language which CANNOT be used in Windows environment.
+
+In this section, you can learn how to install packages, revise programs, etc..
+
+\subsection{LINUX}
+
+\subsubsection{Start LINUX}
+
+Open terminal. You can see that for example for me,
+
+\begin{verbatim}
+    seonjunkwon@resceuX13:~$
+\end{verbatim}
+
+Of course your name and your machine's name are different from mine; The important thing is that you can enter command after the symbol \$.
+
+The window of this terminal you are seeing now is your home directory.
+
+\subsubsection{Directory}
+
+Doing all thing in home directory is NO-efficient. So, we need to move to directory we use.
+
+Open terminal, enter command below.
+
+\begin{verbatim}
+    $ cd Documents/
+\end{verbatim}
+
+Tip: Enter Docu and push Tab-key, you can write 'Documents' more easily.
+
+You moved to Documents directory.
+
+Next, check the recent directory.
+
+After \# is annotation.
+
+\begin{verbatim}
+    $ ls # Check what is in this directory
+    $ ls / # See root directory
+    $ ls .. # See the directory above a step
+    $ ls ~ # See home directory
+    $ ls -a # See all files including hidden files
+    etc.
+\end{verbatim}
+
+For more information and more options, please enter
+
+\begin{verbatim}
+    $ ls -help
+\end{verbatim}
+
+We can make/remove the directory(file).
+
+\begin{verbatim}
+    $ mkdir NewDirectory # Make an empty directory
+    $ rmdir NewDirectory # Remove an EMPTY directory
+    $ rm -rf NewDirectory # Remove a directory and all the files in which
+\end{verbatim}
+
+With rmdir, we can remove empty directory only. If you want to remove a directory in which files exist, you can use 'rm -rf'.
+
+We can make/remove a test file.
+
+\begin{verbatim}
+    $ vi test.txt # Make an empty text file
+\end{verbatim}
+
+You will enter to VI. Type ':wq' to exit(make an empty file).
+
+\begin{verbatim}
+    $ mkdir TestDirectory # Make a directory
+    $ mv test.txt TestDirectory # Move test file to TestDirectory
+    $ vi test2.txt
+     # Make a new empty text file: In VI, please type ':wq' and enter(return).
+    $ mv test2.txt renamed.txt # Rename test2.text to renamed.txt
+    $ mv TestDirectory/test.txt ./
+     # Move test.txt in TestDirectory to current directory
+    $ cp test.txt TestDirectory/ # Copy text.txt to TestDirectory
+\end{verbatim}
+
+You can make, move and copy a file.
+
+\subsection{VI}
+
+\subsubsection{Start VI}
+
+VI has command mode, visual mode and insert mode.
+
+Turn on a terminal and make a file.
+
+\begin{verbatim}
+    $ vi text.txt
+\end{verbatim}
+
+(If there exists text.txt, we can revise that file.)
+
+The terminal will be changed to VI editor, especially command mode.
+
+In command mode, you can enter to visual mode by entering below.
+
+\begin{verbatim}
+    v : Enter to visual mode (Select per letters)
+    V : Enter to visual line mode (Select per sentences)
+\end{verbatim}
+
+You can go back to command mode by enteing 'esc' key.
+
+In command mode, you can enter to insert mode by entering (1 of) those commands.
+
+\begin{verbatim}
+    a : Enter from the next letter of cursor
+    A : Enter from the end of this column
+    i : Enter from the previous letter of cursor
+    I : Enter from the start of this column
+    o : Enter with empty column under this column
+    O : Enter with empty column above this column
+    s : Enter deleting a letter on cursor
+\end{verbatim}
+
+In insert mode, you can go back to command mode by entering 'esc' key.
+
+You can save the file and exit VI command mode, and go back to terminal by entering below.
+
+\begin{verbatim}
+    :wq
+\end{verbatim}
+
+\subsubsection{Command Mode}
+
+For more information, enter below IN TERMINAL.
+
+\begin{verbatim}
+    $ vi -h
+\end{verbatim}
+
+In command mode in VI, we can use move keys, especially
+
+\begin{verbatim}
+    h : left key
+    j : down key
+    k : up key
+    l : right key
+    w : Move to the next word
+    b : Move to the previous word
+    gg : Move to the first column
+    G : Move to the last column
+    ( : Move to the previous sentence
+    ) : Move to the next sentence
+    { : Move to the pervious paragraph
+    } : Move to the next paragraph
+    etc.
+\end{verbatim}
+
+You can delete column(s) by
+
+\begin{verbatim}
+    dd : Delete this column
+    d3 : Delete 3+1=4 columns
+    etc.
+\end{verbatim}
+
+You can copy and paste column(s) by
+
+\begin{verbatim}
+    yy : Copy this column
+    y5 : Copy 5+1=6 columns
+    p : Paste next to cursor
+    P : Paste in front of cursor
+    etc.
+\end{verbatim}
+
+And you can do below.
+
+\begin{verbatim}
+    /[word] : Find [word]
+    n : Next find result
+    u : Undo
+    [ctrl] r : Redo
+    etc.
+\end{verbatim}
+
+You can check and use another convenient methods to revise files by
+
+\begin{verbatim}
+    $ vi -h
+\end{verbatim}
+
+\subsubsection{Visual Mode}
+
+You can enter visual mode from command mode, by entering
+
+\begin{verbatim}
+    v
+\end{verbatim}
+
+You can select from the cursor position before entering visual mode.
+
+\begin{verbatim}
+    [Arrow keys] : Select an area
+    ~ : Convert the letter type and go back to command mode;
+    big to small or small to big
+    d : Delete the area and go back to command mode
+    c : Delete the area and ENTER TO INSERT MODE
+    y : Copy the area and go back to command mode
+    [esc] : Do nothing and go back to command mode
+\end{verbatim}
+
+\subsubsection{Insert Mode}
+
+You can revise the file in insert mode, and this is almost same as that of Windows memo or wordpad.
+
+\subsection{SSH}
+
+\subsubsection{Create an Account}\label{SSH}
+
+Using SSH, you can enter to the supercomputer, RESCEUBBC or IGWN computer, etc. for example.
+
+At first, talk to your supervisor and create your account. If you received email about SSH, please follow that guideline.
+
+If you want to have your own SSH key(public and private), open the terminal and enter below.
+
+\begin{verbatim}
+    $ ssh-keygen
+\end{verbatim}
+
+SSH keys are stored in the '$\sim$/.ssh' folder.
+
+You will have 'id\_rsa' file or 'id\_ed25519' file and that's '.pub' file. The file '.pub' is a public file, and the file without an extension is a private file. You should not disclose your private file to anyone other than yourself. The file to be uploaded to the authentication website is also a public file, so you do not need to upload a private file. The private file on your computer is used to log in using SSH, with the public file uploaded to the authentication website.
+
+\subsubsection{Login}
+
+In terminal, enter below.
+
+\begin{verbatim}
+    $ ssh [account name]@[address]
+    $ ssh seonjun.kwon@resceubbc.resceu.s.u-tokyo.ac.jp # for example
+\end{verbatim}
+
+You can login with your own password, or public-private keys.
+
+For various options, you can enter below, but I think it is necessary without any options.
+
+\begin{verbatim}
+    ssh
+    scp help
+\end{verbatim}
+
+\subsubsection{Upload and Download}
+
+You can upload and download the file or directory with 'scp'.
+
+In local terminal,
+
+\begin{verbatim}
+    $ scp [file] [account name]@[address]:[target directory] # Upload a file
+    $ scp -r [directory] [account name]@[address]:[target directory]
+     # Upload a directory
+    $ scp [account name]@[address]:[directory]/[file] [Downloading directory]
+     # Download a file
+\end{verbatim}
+
+\subsection{GIT}
+
+You can upload your files to GIT in order for your colleagues to see and check the file, and also you can download the file from your GIT. It is very useful for your remote works.
+
+\subsubsection{Initial Settings}
+
+Talk to your supervisor, and make your git address for your thesis. It should have the 'readme.md' file.
+
+After that, you should do a little work in local.
+
+In your local computer, you should make a local directory to share your file.
+
+\begin{verbatim}
+    $ mkdir gitshare
+\end{verbatim}
+
+You can set the directory name for your own, not only 'gitshare'.
+
+Make an initial environment.
+
+\begin{verbatim}
+    $ cd gitshare
+    ~gitshare/$ git init
+    ~gitshare/$ git remote add origin [Your git address]
+    ~gitshare/$ git branch -M main
+    ~gitshare/$ git push -u origin main
+\end{verbatim}
+
+Once you added the remote address, you don't have to add the remote git address.
+
+You have to check your git's branch,
+
+\begin{verbatim}
+    ~gitshare/$ git branch
+\end{verbatim}
+
+You can see your all branch, and the branch with '*' is the branch selected.
+
+You can make a branch and change the selected branch.
+
+\begin{verbatim}
+    ~gitshare/$ git branch [branch name] # Make a branch
+    ~gitshare/$ git checkout -b [branch name]
+     # Checkout from the branch and make a new branch
+    ~gitshare/$ git branch -d [branch name] # Delete a branch
+\end{verbatim}
+
+For more information, you can see \href{https://git-scm.com/book/en/v2}{Git book}.
+
+\subsubsection{Upload}
+
+First, you should 'add' your file and second 'commit', and push(means upload) the committed file.
+
+\begin{verbatim}
+    ~gitshare/$ git add [file name] # Upload a file
+    ~gitshare/$ git add .
+     # Upload all files, CAUTION FOR THIS COMMAND!!
+       IF THERE DOESN'T EXISTS THE FILE IN LOCAL, THAT EXISTS IN GIT,
+       THE FILE WILL BE DELETED.
+    ~gitshare/$ git commit -m [message] # Commit
+    ~gitshare/$ git push # Push
+    ~gitshare/$ git push -f # Push forcely
+\end{verbatim}
+
+For more information, you can see \href{https://git-scm.com/book/en/v2}{Git book}.
+
+\subsubsection{Download}
+
+You can download(merge) files from git to local.
+
+\begin{verbatim}
+    ~gitshare/$ git pull # Pull(Download), it can occur an error.
+    ~gitshare/$ git pull -f
+     # Pull forcely,
+       IF YOU ARE CONFIDENT THAT
+       YOU CAN CHANGE ALL YOUR LOCAL FILES TO THAT IN GIT.
+\end{verbatim}
+
+You can undo your previous commitments, add tag, fetch forcely, etc.. For those information, you can see \href{https://git-scm.com/book/en/v2}{Git book}.
+
+\subsubsection{Set the Access Token}
+
+You can set the access token, and SHOULD set it if you are using Github.
+
+LIGO git: Go to the "User Settings - Access tokens". And then click "Add new token" and set the token's name, expire date, and the scopes(permissions).
+
+Github: Go to your profile and enter "Settings - Developer settings". Enter "tokens(classic)" and click "Generate new token". Set the token's name, expire date, and the permissions.
+
+You have to save the token in your own storage: this should not be leaked. If not saved, you cannot see the token so you have to regenerate a token.
+
+And then set the remote path.
+
+\begin{verbatim}
+    ~gitshare/$ git remote hub https://<Username>:<Token>@github.com/<Address>.git
+\end{verbatim}
+
+If you are using LIGO git, it is almost same.
+\begin{verbatim}
+    ~gitshare/$ git remote origin https://<Username>:<Token>@git.ligo.org/<Address>.git
+\end{verbatim}
+
+Then, you can copy and link your project in LIGO git to github, which does not expire even if you graduate. (We assume that the local path is 'gitshare'.)
+
+\begin{verbatim}
+    $ git pull origin main
+    $ git push hub main
+\end{verbatim}
+
+If you worked locally,
+
+\begin{verbatim}
+    $ git add .
+    $ git commit -m "<Your commit message>"
+    $ git push origin main
+    $ git push hub main
+\end{verbatim}
+
+Caution: Uploading a file over 100MB in Github is very annoying. Make sure to check if you have files over 100MB in size locally.
+
+\subsection{Conda and Python}
+
+When you are doing research, you should make a program for your research, using Python3.
+
+\subsubsection{Download Conda}
+
+First, download installation file.
+
+\begin{verbatim}
+    $ wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
+\end{verbatim}
+
+I recommend to download the newest version.
+
+Run the installation file.
+
+\begin{verbatim}
+    bash Anaconda3-2024.06-1-Linux-x86_64.sh
+\end{verbatim}
+
+We have to set the path.
+
+\begin{verbatim}
+    $ source ~/.bashrc
+    $ vi ~/.bashrc
+\end{verbatim}
+
+In VI, you add
+
+\begin{verbatim}
+    export PATH="/home/username/anaconda3/bin:$PATH"
+\end{verbatim}
+
+where 'username' is your user name.
+
+\subsubsection{Use Python 3.10 with Conda}
+
+I recommend the Python version 3.10, and you can also use another version of Python.
+
+Let's create a virtual environment.
+
+\begin{verbatim}
+    $ conda create -n python3.10 python=3.10
+\end{verbatim}
+
+We can see that
+d
+\begin{verbatim}
+    Proceed ([y]/n)?
+\end{verbatim}
+
+Type y.
+
+You can see the environments using below.
+
+\begin{verbatim}
+    $ conda info -e
+\end{verbatim}
+
+To run python file, you have to activate the python environment.
+
+\begin{verbatim}
+    $ conda activate python3.10
+\end{verbatim}
+
+\subsubsection{Set Path}
+
+You have to set path to run your package. It can be set automatically, but if not, you cannot run the package you installed.
+
+PLEASE DO THIS SECTION ONLY IF AN ERROR OCCURED IMPORTING DOWNLOADED PACKAGE. If it works without any path settings, you can move to next section.
+
+PLEASE ASK YOUR SUPERVISOR OR LINUX EXPERT ABOUT THAT PROBLEM IF YOU DON'T HAVE A CONFIDENCE.
+
+If you use local, you have to check where is your Python. And edit '.bashrc' file.
+
+\begin{verbatim}
+    $ which python3
+    $ vi .bashrc
+\end{verbatim}
+
+In VI, you can add that phrase in the bottom of that file,
+
+\begin{verbatim}
+    export PATH=[Your Python path]:$PATH
+\end{verbatim}
+
+If you made a mistake, a temporarily solution is to enter this phrase in the bottom of that file.
+
+\begin{verbatim}
+    export PATH=$(getconf PATH)
+\end{verbatim}
+
+AND PLEASE ASK YOUR SUPERVISOR OR LINUX EXPERT.
+
+\subsubsection{Install Packages}
+
+We have to install the necessary packages.
+
+\begin{verbatim}
+    $ conda activate python3.10
+    $ pip install numpy matplotlib bilby gwpy pycbc
+\end{verbatim}
+
+And the 'argparse' package will help you to do testing and running file, or multi-processing.
+
+\begin{verbatim}
+    $ pip install argparse
+\end{verbatim}
+
+If you have to install more packages, please install WITH CONDA, not pip.
+
+\begin{verbatim}
+    $ conda install -n python3.10 [package-name]
+\end{verbatim}
+
+If this doesn't work,
+
+\begin{verbatim}
+    $ conda install -n python3.10 -c conda-forge [package-name]
+\end{verbatim}
+
+When we have to install a specific version of the package, we can use version number. for example, 
+
+\begin{verbatim}
+    $ pip install numpy==1.14.5
+    $ conda install tensorflow=2.5
+\end{verbatim}
+
+You can see we have 2 =s in pip, and 1 = in conda.
+
+For more information about pip and conda,
+
+\begin{verbatim}
+    $ pip help
+    $ conda
+\end{verbatim}
+
+\subsubsection{Python Tutorial}
+
+You have to study Python before make your own program.
+
+We consider you to have a basic knowledge of the Python language. If not, please see and study  \href{https://docs.python.org/3/tutorial/index.html}{Python Tutorial}.
+
+\subsubsection{Run .py File}
+
+You can run your own Python file you made.
+
+\begin{verbatim}
+    $ python3 test.py
+\end{verbatim}
+
+If you set your Python as 'python3.10' not 'python3'(especially for example Conda environment), you can run with
+
+\begin{verbatim}
+    $ python3.10 test.py
+\end{verbatim}
+
+\subsubsection{Make a Program}
+
+You can run a file, which isn't '.py' file. For example, take that the file name is 'test', not 'test.py'.
+
+In the first of file, you have to add
+
+\begin{verbatim}
+    #!/usr/bin/env python3
+\end{verbatim}
+
+And run the file
+
+\begin{verbatim}
+    $ ./test
+\end{verbatim}
+
+The running language will be Python 3.
+
+\subsubsection{Argparse Packge}
+
+You can run a file with various options using argparse package.
+
+Make a file(with Python language). For convenient, the file name will be 'test'.
+
+\begin{python}[python3]
+    #!usr/bin/env python3
+    
+    # Set initial environment
+    import argparse
+    parser = argparse.ArgumentParser(
+        prog = 'ProgramName',
+        description = 'What the program does',
+        epilog = 'Text at the bottom of help')
+    parser.add_argument('-c',
+                        '--count',
+                        type=int,
+                        default=1,
+                        help='The number of simulation times')
+    args = parser.parse_args()
+
+    # Define a function
+    def run(n):
+        print(n)
+    for n in range(args.count):
+        run(n)
+\end{python}
+
+And print from 1 to 10.
+
+\begin{verbatim}
+    $ ./test -c 10
+\end{verbatim}
+
+Of course, you can run with entering this command,
+
+\begin{verbatim}
+    $ python3 test -c 10
+\end{verbatim}
+
+You can use this package for other purposes, and for more information, you can see \href{https://docs.python.org/3/howto/argparse.html}{Argparse Tutorial}.
+
+\subsubsection{Nohup and Tail}
+
+Using 'nohup', you can activate a program in background, when you have to logout from ssh server.
+
+\begin{verbatim}
+    $ nohup python3.10 test.py &
+\end{verbatim}
+
+If you didn't enter '\&', the program is activated in foreground, so if you have to logout during the program running, you have to type '\&' at the last of the command.
+
+If the program is running in foreground, you cannot interact with the shell(terminal) until the end of the running.
+
+'tail' prints the last 10 lines of each file to standard output.
+
+To see the last 10 lines of the nohup file, you can enter below.
+
+\begin{verbatim}
+    $ tail nohup.out
+\end{verbatim}
+
+If you want to see the status in real time, you can enter the following.
+
+\begin{verbatim}
+    $ tail -f nohup.out
+\end{verbatim}
+
+Of course, this state can escape by entering Ctrl-c.
+
+If you did multi-processing so nohup says nothing, you can use 'nohup' and '-u'. For example,
+
+\begin{verbatim}
+    $ nohup python3.10 -u test.py &
+\end{verbatim}
+
+For more information about 'tail', you can type that
+
+\begin{verbatim}
+    $ tail --help
+\end{verbatim}
+
+\subsection{Data Access}
+
+\subsubsection{GWOSC}
+
+\subsubsection{O4 data}

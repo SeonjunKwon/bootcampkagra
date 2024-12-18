@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{from} \PYG{n+nn}{pycbc.filter} \PYG{k+kn}{import} \PYG{n}{resample\PYGZus{}to\PYGZus{}delta\PYGZus{}t}
+
+\PYG{n}{resampled} \PYG{o}{=} \PYG{n}{resample\PYGZus{}to\PYGZus{}delta\PYGZus{}t}\PYG{p}{(}\PYG{n}{strain}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{l+m+mi}{1024}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{resampled}\PYG{o}{.}\PYG{n}{sample\PYGZus{}rate}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{resampled}\PYG{o}{.}\PYG{n}{delta\PYGZus{}t}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{result\PYGZus{}short} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{run\PYGZus{}sampler}\PYG{p}{(}
+        \PYG{n}{likelihood}\PYG{p}{,}
+        \PYG{n}{prior}\PYG{p}{,}
+        \PYG{n}{sampler} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}dynesty\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{outdir} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}short\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}GW150914\PYGZsq{}}\PYG{p}{,}
+        \PYG{n}{conversion\PYGZus{}function} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{gw}\PYG{o}{.}\PYG{n}{conversion}\PYG{o}{.}\PYG{n}{generate\PYGZus{}all\PYGZus{}bbh\PYGZus{}parameters}\PYG{p}{,}
+        \PYG{n}{nlive} \PYG{o}{=} \PYG{l+m+mi}{250}\PYG{p}{,}
+        \PYG{n}{dlogz} \PYG{o}{=} \PYG{l+m+mf}{1.}\PYG{p}{,}
+        \PYG{n}{clean} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{,}
+        \PYG{n}{npool} \PYG{o}{=} \PYG{n}{args}\PYG{o}{.}\PYG{n}{process}\PYG{p}{)}
+\end{Verbatim}

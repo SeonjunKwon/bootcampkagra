@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{bilby}
+\PYG{k+kn}{import} \PYG{n+nn}{gwosc}
+\PYG{k+kn}{from} \PYG{n+nn}{gwosc.datasets} \PYG{k+kn}{import} \PYG{n}{event\PYGZus{}gps}
+\PYG{k+kn}{import} \PYG{n+nn}{gwpy}
+\PYG{k+kn}{from} \PYG{n+nn}{gwpy.timeseries} \PYG{k+kn}{import} \PYG{n}{TimeSeries}
+
+\PYG{c+c1}{\PYGZsh{}Using GWpy, download the gravitional\PYGZhy{}wave data.}
+\PYG{n}{gps} \PYG{o}{=} \PYG{n}{event\PYGZus{}gps}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GW150914\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{Data} \PYG{o}{=} \PYG{n}{TimeSeries}\PYG{o}{.}\PYG{n}{fetch\PYGZus{}open\PYGZus{}data}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}L1\PYGZsq{}}\PYG{p}{,} \PYG{n}{gps} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{gps} \PYG{o}{+} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{sample\PYGZus{}rate} \PYG{o}{=} \PYG{l+m+mi}{4096}\PYG{p}{,} \PYG{n}{cache} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Set interferometer and strain data using bilby}
+\PYG{n}{L1} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{gw}\PYG{o}{.}\PYG{n}{detector}\PYG{o}{.}\PYG{n}{get\PYGZus{}empty\PYGZus{}interferometer}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}L1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{L1}\PYG{o}{.}\PYG{n}{set\PYGZus{}strain\PYGZus{}data\PYGZus{}from\PYGZus{}gwpy\PYGZus{}timeseries}\PYG{p}{(}\PYG{n}{Data}\PYG{p}{)}
+\end{Verbatim}

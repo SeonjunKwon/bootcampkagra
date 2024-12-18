@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{bilby}
+\PYG{k+kn}{from} \PYG{n+nn}{bilby.core.prior} \PYG{k+kn}{import} \PYG{n}{Uniform}\PYG{p}{,} \PYG{n}{PowerLaw}
+\PYG{n}{prior} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{core}\PYG{o}{.}\PYG{n}{prior}\PYG{o}{.}\PYG{n}{PriorDict}\PYG{p}{()}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}chirp\PYGZus{}mass\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Uniform}\PYG{p}{(}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}chirp\PYGZus{}mass\PYGZsq{}}\PYG{p}{,}
+                              \PYG{n}{minimum} \PYG{o}{=} \PYG{l+m+mf}{26.0}\PYG{p}{,}
+                              \PYG{n}{maximum} \PYG{o}{=} \PYG{l+m+mf}{30.0}\PYG{p}{)}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mass\PYGZus{}ratio\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Uniform}\PYG{p}{(}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}mass\PYGZus{}ratio\PYGZsq{}}\PYG{p}{,}
+                              \PYG{n}{minimum} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{,}
+                              \PYG{n}{maximum} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}phase\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Uniform}\PYG{p}{(}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}phase\PYGZsq{}}\PYG{p}{,}
+                         \PYG{n}{minimum} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{,}
+                         \PYG{n}{maximum} \PYG{o}{=} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}geocent\PYGZus{}time\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{Uniform}\PYG{p}{(}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}geocent\PYGZus{}time\PYGZsq{}}\PYG{p}{,}
+                                \PYG{n}{minimum} \PYG{o}{=} \PYG{l+m+mi}{2} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{0.1}\PYG{p}{,}
+                                \PYG{n}{maximum} \PYG{o}{=} \PYG{l+m+mi}{2} \PYG{o}{+} \PYG{l+m+mf}{0.1}\PYG{p}{)}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}a\PYGZus{}1\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}a\PYGZus{}2\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{prior}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}luminosity\PYGZus{}distance\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{PowerLaw}\PYG{p}{(}\PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{,}
+                                        \PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}luminosity\PYGZus{}distance\PYGZsq{}}\PYG{p}{,}
+                                        \PYG{n}{minimum} \PYG{o}{=} \PYG{l+m+mi}{50}\PYG{p}{,}
+                                        \PYG{n}{maximum} \PYG{o}{=} \PYG{l+m+mi}{2000}\PYG{p}{,}
+                                        \PYG{n}{unit} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Mpc\PYGZsq{}}\PYG{p}{,}
+                                        \PYG{n}{latex\PYGZus{}label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}d\PYGZus{}L\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

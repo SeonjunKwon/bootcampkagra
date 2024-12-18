@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{plot} \PYG{o}{=} \PYG{n}{FetchedData}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{()}
+\PYG{n}{plot}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()} \PYG{c+c1}{\PYGZsh{} If you can\PYGZsq{}t see the plot by previous line, run this line also.}
+\end{Verbatim}

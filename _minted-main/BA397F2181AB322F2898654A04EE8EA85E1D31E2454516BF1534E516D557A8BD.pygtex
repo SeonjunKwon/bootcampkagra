@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{ResampledData} \PYG{o}{=} \PYG{n}{FetchedData}\PYG{o}{.}\PYG{n}{resample}\PYG{p}{(}\PYG{l+m+mi}{1024}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{ResampledData}\PYG{o}{.}\PYG{n}{sample\PYGZus{}rate}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{ResampledData}\PYG{o}{.}\PYG{n}{dt}\PYG{p}{)}
+\end{Verbatim}

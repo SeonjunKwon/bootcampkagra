@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{hp}\PYG{o}{.}\PYG{n}{start\PYGZus{}time} \PYG{o}{=} \PYG{n}{hp}\PYG{o}{.}\PYG{n}{start\PYGZus{}time} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{)} \PYG{o}{*} \PYG{n}{hp}\PYG{o}{.}\PYG{n}{delta\PYGZus{}t} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+\end{Verbatim}

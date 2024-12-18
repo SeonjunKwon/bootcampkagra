@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{gwosc}
+\PYG{k+kn}{from} \PYG{n+nn}{gwosc.datasets} \PYG{k+kn}{import} \PYG{n}{event\PYGZus{}gps}
+
+\PYG{n}{gps} \PYG{o}{=} \PYG{n}{event\PYGZus{}gps}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}GW190412\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{segment} \PYG{o}{=} \PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{gps}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{gps}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{5}\PYG{p}{)}
+\end{Verbatim}

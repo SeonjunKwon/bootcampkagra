@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{snr} \PYG{o}{=} \PYG{n}{matched\PYGZus{}filter}\PYG{p}{(}\PYG{n}{hp}\PYG{p}{,}
+                     \PYG{n}{sample}\PYG{p}{,}
+                     \PYG{n}{psd}\PYG{o}{=}\PYG{n}{psd}\PYG{p}{,}
+                     \PYG{n}{low\PYGZus{}frequency\PYGZus{}cutoff}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{)}
+\PYG{n}{snr} \PYG{o}{=} \PYG{n}{snr}\PYG{o}{.}\PYG{n}{crop}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{n}{peak} \PYG{o}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{snr}\PYG{p}{)}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{()}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{()}
+\PYG{n}{snrp} \PYG{o}{=} \PYG{n}{noisesnr}\PYG{p}{[}\PYG{n}{peak}\PYG{p}{]}
+\PYG{n}{snrp} \PYG{o}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{snrp}\PYG{p}{)}
+\PYG{n}{time} \PYG{o}{=} \PYG{n}{snr}\PYG{o}{.}\PYG{n}{sample\PYGZus{}times}\PYG{p}{[}\PYG{n}{peak}\PYG{p}{]}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{time}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{snrp}\PYG{p}{)}
+\end{Verbatim}

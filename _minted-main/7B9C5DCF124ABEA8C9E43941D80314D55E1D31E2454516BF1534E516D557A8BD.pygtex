@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pycbc}
+\PYG{k+kn}{from} \PYG{n+nn}{pycbc.waveform} \PYG{k+kn}{import} \PYG{n}{get\PYGZus{}td\PYGZus{}waveform}
+\PYG{k+kn}{from} \PYG{n+nn}{pycbc.filter} \PYG{k+kn}{import} \PYG{n}{matched\PYGZus{}filter}
+\PYG{n}{hp}\PYG{o}{.}\PYG{n}{resize}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{))}
+\end{Verbatim}

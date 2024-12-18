@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{DataTrue} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{*} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{NegativeData}\PYG{p}{)} \PYG{o}{+} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{*} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{PositiveData}\PYG{p}{)}
+\PYG{n}{Scores} \PYG{o}{=} \PYG{n}{NegativeData} \PYG{o}{+} \PYG{n}{PositiveData}
+\PYG{n}{fpr}\PYG{p}{,} \PYG{n}{tpr}\PYG{p}{,} \PYG{n}{thresholds} \PYG{o}{=} \PYG{n}{roc\PYGZus{}curve}\PYG{p}{(}\PYG{n}{DataTrue}\PYG{p}{,} \PYG{n}{Scores}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{warnings}
+\PYG{n}{warnings}\PYG{o}{.}\PYG{n}{filterwarnings}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}ignore\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Wswiglal\PYGZhy{}redir\PYGZhy{}stdio\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kn}{import} \PYG{n+nn}{gwpy}
+\PYG{k+kn}{from} \PYG{n+nn}{gwpy.timeseries} \PYG{k+kn}{import} \PYG{n}{TimeSeries}
+\end{Verbatim}

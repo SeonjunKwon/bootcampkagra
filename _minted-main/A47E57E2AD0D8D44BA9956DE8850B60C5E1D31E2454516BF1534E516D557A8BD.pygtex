@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{plot}\PYG{o}{.}\PYG{n}{colorbars}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{mappable}\PYG{o}{.}\PYG{n}{set\PYGZus{}clim}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{20}\PYG{p}{)}
+\PYG{n}{plot}\PYG{o}{.}\PYG{n}{refresh}\PYG{p}{()}
+\PYG{n}{plot}
+\end{Verbatim}

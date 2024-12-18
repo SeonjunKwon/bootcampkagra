@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.plot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{loglog}\PYG{p}{(}\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{power\PYGZus{}spectral\PYGZus{}density}\PYG{o}{.}\PYG{n}{frequency\PYGZus{}array}\PYG{p}{,} \PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{power\PYGZus{}spectral\PYGZus{}density}\PYG{o}{.}\PYG{n}{psd\PYGZus{}array}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

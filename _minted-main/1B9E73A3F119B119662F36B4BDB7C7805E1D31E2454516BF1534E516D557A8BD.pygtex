@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{argparse}
+\PYG{k+kn}{import} \PYG{n+nn}{multiprocessing}
+\PYG{k+kn}{from} \PYG{n+nn}{multiprocessing} \PYG{k+kn}{import} \PYG{n}{Pool}
+\PYG{n}{parser} \PYG{o}{=} \PYG{n}{argparse}\PYG{o}{.}\PYG{n}{ArgumentParser}\PYG{p}{(}
+    \PYG{n}{prog} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}ProgramName\PYGZsq{}}\PYG{p}{,}
+    \PYG{n}{description} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}What the program does\PYGZsq{}}\PYG{p}{,}
+    \PYG{n}{epilog} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Text at the bottom of help\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}c\PYGZsq{}}\PYG{p}{,}
+                    \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}count\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n+nb}{type}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{,}
+                    \PYG{n}{default}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}
+                    \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}The number of simulation times\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}p\PYGZsq{}}\PYG{p}{,}
+                \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}process\PYGZsq{}}\PYG{p}{,}
+                \PYG{n+nb}{type}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{,}
+                \PYG{n}{default}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}
+                \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}The number of processes for multi\PYGZhy{}processing\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{args} \PYG{o}{=} \PYG{n}{parser}\PYG{o}{.}\PYG{n}{parse\PYGZus{}args}\PYG{p}{()}
+\PYG{k}{def} \PYG{n+nf}{run}\PYG{p}{(}\PYG{n}{n}\PYG{p}{):}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{n}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{pool} \PYG{o}{=} \PYG{n}{Pool}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{process}\PYG{p}{)}
+\PYG{n}{inputs} \PYG{o}{=} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{count}\PYG{p}{)}
+\PYG{n}{pool}\PYG{o}{.}\PYG{n}{map}\PYG{p}{(}\PYG{n}{run}\PYG{p}{,} \PYG{n}{inputs}\PYG{p}{)}
+\end{Verbatim}

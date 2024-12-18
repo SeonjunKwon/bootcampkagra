@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{from} \PYG{n+nn}{gwpy.timeseries} \PYG{k+kn}{import} \PYG{n}{TimeSeries}
+\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{set\PYGZus{}strain\PYGZus{}data\PYGZus{}from\PYGZus{}power\PYGZus{}spectral\PYGZus{}density}\PYG{p}{(}
+    \PYG{n}{sampling\PYGZus{}frequency}\PYG{o}{=}\PYG{l+m+mi}{4096}\PYG{p}{,}
+    \PYG{n}{duration}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{,}
+    \PYG{n}{start\PYGZus{}time}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{n}{Noise} \PYG{o}{=} \PYG{n}{TimeSeries}\PYG{p}{(}
+    \PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{strain\PYGZus{}data}\PYG{o}{.}\PYG{n}{time\PYGZus{}domain\PYGZus{}strain}\PYG{p}{,}
+    \PYG{n}{dt} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{l+m+mi}{4096}\PYG{p}{,}
+    \PYG{n}{t0} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}

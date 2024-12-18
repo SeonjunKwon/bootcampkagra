@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{pycbc}
+\PYG{k+kn}{from} \PYG{n+nn}{pycbc.types} \PYG{k+kn}{import} \PYG{n}{TimeSeries}
+\PYG{k+kn}{import} \PYG{n+nn}{gwpy}
+\PYG{k+kn}{from} \PYG{n+nn}{gwpy.timeseries} \PYG{k+kn}{import} \PYG{n}{TimeSeries} \PYG{k}{as} \PYG{n}{GWTimeSeries}
+\PYG{n}{GWsample} \PYG{o}{=} \PYG{n}{GWTimeSeries}\PYG{p}{(}
+\PYG{n}{sample}\PYG{p}{,}
+\PYG{n}{dt} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{l+m+mi}{4096}\PYG{p}{,}
+\PYG{n}{t0} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}

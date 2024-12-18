@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{loglog}\PYG{p}{(}\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{strain\PYGZus{}data}\PYG{o}{.}\PYG{n}{frequency\PYGZus{}array}\PYG{p}{,} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{strain\PYGZus{}data}\PYG{o}{.}\PYG{n}{frequency\PYGZus{}domain\PYGZus{}strain}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

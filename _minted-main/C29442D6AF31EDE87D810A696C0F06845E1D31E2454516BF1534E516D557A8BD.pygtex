@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{bilby}
+\PYG{n}{freq} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{2048}\PYG{p}{,}\PYG{l+m+mi}{8193}\PYG{p}{)}
+\PYG{n}{psd} \PYG{o}{=} \PYG{l+m+mi}{8193} \PYG{o}{*} \PYG{p}{[}\PYG{l+m+mf}{1.} \PYG{o}{*} \PYG{l+m+mf}{1e\PYGZhy{}40}\PYG{p}{]}
+\PYG{n}{Ifo} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{gw}\PYG{o}{.}\PYG{n}{detector}\PYG{o}{.}\PYG{n}{get\PYGZus{}empty\PYGZus{}interferometer}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}K1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{Ifo}\PYG{o}{.}\PYG{n}{power\PYGZus{}spectral\PYGZus{}density} \PYG{o}{=} \PYG{n}{bilby}\PYG{o}{.}\PYG{n}{gw}\PYG{o}{.}\PYG{n}{detector}\PYG{o}{.}\PYG{n}{PowerSpectralDensity}\PYG{p}{(}
+    \PYG{n}{frequency\PYGZus{}array} \PYG{o}{=} \PYG{n}{freq}\PYG{p}{,}
+    \PYG{n}{psd\PYGZus{}array} \PYG{o}{=} \PYG{n}{psd}\PYG{p}{)}
+\end{Verbatim}
