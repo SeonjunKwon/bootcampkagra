@@ -1,8 +1,8 @@
-\section{GstLAL}
+\section{TESLA based on GstLAL}
 \subsection{Connecting to a LIGO Data Grid}
 \subsubsection{How to Add a SSH Key}
 
-When you are using GstLAL, it's very convenient to connect to LIGO Data Grid.
+When you are using TESLA, it's very convenient to connect to LIGO Data Grid.
 
 This guide follows \href{https://computing.docs.ligo.org/guide/computing-centres/ldg/}{the LIGO Computing Guide}.
 
@@ -32,13 +32,13 @@ You can see the login hosts of \href{https://computing.docs.ligo.org/guide/compu
     $ ssh seonjun.kwon@ldas-pcdev2.ligo.caltech.edu
 \end{verbatim}
 
-\subsection{Install the GstLAL}
+\subsection{Install the TESLA}
 
 You can use GstLAL in LIGO Grid, or another supercomputer(for example, RESCEUBBC).
 
 This guide was written with the help of Dr. Alvin Li.
 
-\subsubsection{Use GstLAL in LIGO Grid}
+\subsubsection{Use TESLA in the LIGO Grid}
 
 Login to LIGO Grid and make a directory.
 
@@ -47,10 +47,46 @@ Login to LIGO Grid and make a directory.
     $ cd Lensing
 \end{verbatim}
 
-There is a package in Dr. Alvin Li's directory that he has organized for download in batches. Let's create a Conda virtual environment by copying it.(Enter without a new line)
+There is a package in Dr. Alvin Li's directory that he has organized for download in batches.
+
+\textbf{Use the Environment Directly: Recommended}
+
+I recommend to use Dr Alvin Li's virtual environment directly, because Dr. Alvin Li can upgrade the elements of the TESLA environment, and in that case, it's very annoying to copy the new environment (upgrade the environment).
+
+Set the nickname of the directory. For example, 'lensingenv'.
+
+Vim into the '.bashrc' file.
 
 \begin{verbatim}
-    $ conda create --name testlensing --clone
+    $ vi ~/.bashrc
+\end{verbatim}
+
+Add a phrase as below,
+
+\begin{verbatim}
+    export lensingenv=home/alvin.li/.conda/envs/tesla_o4a_analysis_240331/
+\end{verbatim}
+
+And reload the bashrc file.
+
+\begin{verbatim}
+    $ source ~/.bashrc
+\end{verbatim}
+
+The setup is over, so you don't have to modify or reload the '.bashrc' file as above from next time, even if you start the session anew.
+
+You can load a virtual environment right away.
+
+\begin{verbatim}
+    $ conda activate $lensingenv
+\end{verbatim}
+
+\textbf{Install the Environment: NOT Recommended}
+
+Let's create a Conda virtual environment by copying it.
+
+\begin{verbatim}
+    $ conda create --name testlensing --clone \
         /home/alvin.li/.conda/envs/tesla_o4a_analysis_240331
 \end{verbatim}
 
@@ -58,7 +94,7 @@ This is the end of the installation.
 
 The name of the package should not overlap. For example, if you set it to igwn-py39, you get an error that the name overlaps.
 
-\subsubsection{Use GstLAL in Another Supercomputer}
+\subsubsection{Use TESLA in Another Supercomputer}
 
 Basically, you can follow \href{https://git.ligo.org/alvin.li/tesla/-/tree/o4a_version_1.0}{Dr. Alvin Li's TESLA guide} in its entirety. It has been approved that it is okay to copy-paste all of this guide, and parts that are not in the guide will also be described here.
 
@@ -389,7 +425,9 @@ If you know the superevent ID(SID) or the event ID(GID), you can see the propert
     $ gracedb get event G416203
 \end{verbatim}
 
-\subsubsection{Analyze an event}
+\subsubsection{Set Up a TESLA Analysis}
+
+This part is based on Doctor Alvin Li's TESLA guide, the part '\href{https://git.ligo.org/alvin.li/tesla#settting-up-a-tesla-analysis}{Setting up a TESLA analysis}'.
 
 First, initialize the environment and login.
 
@@ -413,7 +451,7 @@ Go to the home directory and make a directory to analyze.
 And set the environment.
 
 \begin{verbatim}
-    $ cp /home/lensing.o4/Projects/tesla_o4_runs/production/base_config.yml
+    $ cp /home/lensing.o4/Projects/tesla_o4_runs/production/base_config.yml .
     $ ln -s /home/lensing.o4/Projects/tesla_o4_runs/production/S230518h
     $ ln -s /home/lensing.o4/Projects/tesla_o4_runs/production/S230529ay
     $ ln -s /home/lensing.o4/Projects/tesla_o4_runs/production/S230601bf
@@ -426,11 +464,15 @@ Vim into the base-config file.
     $ vi base_config.yml
 \end{verbatim}
 
-And change the part:
+And change those parts:
 
-project\_dir: (The project folder you analyze)
+[basic\_information] -> project\_dir: (The project folder you analyze)
 
-Webdir: /home/(your name)/public\_html/Projects/tesla\_o4\_runs/production/
+[basic\_information] -> x509\_proxy: ""
+
+[general\_settings] -> group\_user: (your name, ex. albert.einstein)
+
+[general\_settings] -> webdir: /home/(your name)/public\_html/(The folder which has same name as your project directory)
 
 Please see inside the public\_html folder.
 
@@ -438,4 +480,23 @@ Start analysis.
 
 \begin{verbatim}
     $ tesla_initiate_event_analysis --base-config base_config.yml --event G416203
+\end{verbatim}
+
+A master config file 'S230708cf\_TESLA-X\_version0\_main\_config.yml' will be generated under the directory 'S230708cf'.
+
+Go to the directory and continue the analysis.
+
+\begin{verbatim}
+    $ cd S230708cf/
+    $ tesla_initiate_event_analysis \
+       --base-config S230708cf_TESLA-X_version0_main_config.yml
+\end{verbatim}
+
+If it seems to stop while executing the analysis, it will continue by pressing the Enter key. This case will happen many times.
+
+You can watch the progress as follows in other sessions.
+
+\begin{verbatim}
+    $ cd (The project folder you analyze)/S230708cf/TESLA-X_version_0/injection_run/
+    $ tail -f (FIX ME)
 \end{verbatim}
