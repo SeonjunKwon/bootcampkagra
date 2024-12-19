@@ -482,6 +482,13 @@ Start analysis.
     $ tesla_initiate_event_analysis --base-config base_config.yml --event G416203
 \end{verbatim}
 
+You can watch the progress as follows in other sessions.
+
+\begin{verbatim}
+    $ cd (Project folder)/S230708cf/TESLA-X_version_0/generated_lensed_injections/
+    $ tail -f generated_lensed_injections.dag.dagman.out
+\end{verbatim}
+
 A master config file 'S230708cf\_TESLA-X\_version0\_main\_config.yml' will be generated under the directory 'S230708cf'.
 
 Go to the directory and continue the analysis.
@@ -497,6 +504,6 @@ If it seems to stop while executing the analysis, it will continue by pressing t
 You can watch the progress as follows in other sessions.
 
 \begin{verbatim}
-    $ cd (The project folder you analyze)/S230708cf/TESLA-X_version_0/injection_run/
-    $ tail -f (FIX ME)
+    $ cd (Project folder)/S230708cf/TESLA-X_version_0/injection_run/
+    $ tail -f trigger_pipe.dag.dagman.out
 \end{verbatim}
